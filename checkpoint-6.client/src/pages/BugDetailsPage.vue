@@ -1,59 +1,70 @@
 <template>
   <div class="container-fluid">
-    <div v-if="bug">
-      <div v-if="bug.creatorId === account.id" class="row d-flex justify-content-center align-items-center">
-        <form v-if="bug.closed === false" class="form " @submit.prevent="editBug">
-          <label for="bug-title" class="m-3 mx-3">
-            <input type="text"
-                   class="form-control mb-3"
-                   placeholder="Edit Bug Title"
-                   name="board-title"
-                   title="Edit Bug Title"
-                   v-model="state.editedBug.title"
-            >
-          </label>
-          <label for="bug-description" class="m-3">
-            <textarea name="description body"
-                      id=""
-                      cols="50"
-                      rows="3"
-                      placeholder="Edit Description"
-                      class="form-control mb-1"
-                      title="Edit Description Body"
-                      v-model="state.editedBug.description"
-            ></textarea>
-          </label>
-          <button type="submit" class="btn btn-primary mb-2" title="Create Bug">
-            Submit Bug
-          </button>
-        </form>
+    <div v-if="bug" class="row d-flex align-items-column justify-content-center m-4 mb-5">
+      <div class="col-6 mt-4">
+        <div v-if="bug.creatorId === account.id" class="">
+          <form v-if="bug.closed === false" class="form text-center" @submit.prevent="editBug">
+            <h4>Need to Edit Your Bug?</h4>
+            <div for="bug-title">
+              <input type="text"
+                     class="form-control"
+                     placeholder="Edit Bug Title"
+                     name="board-title"
+                     title="Edit Bug Title"
+                     v-model="state.editedBug.title"
+              >
+            </div>
+            <div for="bug-description" class="m-3">
+              <textarea name="description body"
+                        id=""
+                        cols="50"
+                        rows="3"
+                        placeholder="Edit Description"
+                        class="form-control"
+                        title="Edit Description Body"
+                        v-model="state.editedBug.description"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" title="Create Bug">
+              Submit Edit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-    <div v-if="bug" class="d-flex justify-content-center text-danger">
-      <h1><u>{{ bug.title }}</u></h1>
+    <div v-if="bug" class="text-primary mx-5">
+      <h2><u>{{ bug.title }}</u></h2>
     </div>
     <div class="card border shadow-lg mx-4">
       <div class="row" v-if="bug">
-        <div class="col-12 d-flex justify-content-between p-3 m-3">
-          {{ bug.description }}
-          <div class="col-4">
+        <div class="col-12 d-flex justify-content-center align-items-column p-3 m-3">
+          <h3>
+            Bug Description:
+          </h3>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-column mb-5">
+          <div>
+            <u>{{ bug.description }}</u>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+          <div class="mx-3">
+            <h4>Status:</h4>
             <span v-if="bug.closed === true" class="text-danger">Closed</span>
-
             <span v-else class="text-success mx-3">Open
-
               <i @click="closeBug" v-if="bug.creatorId === account.id" class="mdi mdi-trash-can-outline text-warning bg-secondary rounded" title="Close Bug"></i>
-
             </span>
+          </div>
+          <div v-if="bug" class="mx-3 p-3">
+            <h4>Submitted by:</h4>
+            {{ bug.creator.name }}
+            <img :src="bug.creator.picture" class="rounded-circle" alt="creator" height="30">
           </div>
         </div>
       </div>
     </div>
-    <div v-if="bug" class="d-flex justify-content-center">
-      {{ bug.creator.name }}
-      <img :src="bug.creator.picture" alt="creator" height="30">
-    </div>
     <Note v-for="note in notes" :key="note.id" :note="note" />
-    <div class="card bg-warning m-3 p-3 shadow-lg">
+    <div class="card bg-dark m-3 p-3 shadow-lg">
       <form class="form d-flex justify-content-center" @submit.prevent="createNote">
         <label for="note-body" class="m-3" title="Add Note Text">
           <textarea name="body"

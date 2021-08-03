@@ -8,9 +8,6 @@
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with contempt by Me
-    </div>
   </footer>
 </template>
 

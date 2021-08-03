@@ -25,7 +25,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link :to="{ name: 'Home' }" class="nav-link">
-            <h2> Da Bugs</h2>
+            <h2> Bug Log</h2>
           </router-link>
         </li>
       </ul>

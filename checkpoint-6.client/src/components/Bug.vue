@@ -1,13 +1,15 @@
 <template>
-  <div class="row border p-3 m-3 shadow-lg">
+  <div class="row border-2 p-3 m-3 shadow-lg">
     <div class="col-3">
       <router-link :to="{name: 'BugDetails', params: {id: bug.id}}">
         <u>{{ bug.title }}</u>
       </router-link>
     </div>
     <div class="col-3">
-      {{ bug.creator.name }}
-      <img :src="bug.creator.picture" alt="creator" height="30" class="rounded-pill mx-3">
+      <div class="d-flex align-items-column justify-content-center">
+        {{ bug.creator.name }}
+        <img :src="bug.creator.picture" alt="creator" height="30" class="rounded-pill mx-3">
+      </div>
     </div>
     <div class="col-3">
       <span v-if="bug.closed === true" class="text-danger">Closed</span>

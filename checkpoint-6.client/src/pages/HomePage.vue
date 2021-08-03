@@ -1,36 +1,73 @@
 <template>
   <div class="home container-fluid">
-    <div class="row m-3 d-flex justify-content-center ">
-      <div class="card bg-danger p-3 shadow-lg">
-        <form class="form d-flex justify-content-center align-items-center" @submit.prevent="createBug">
-          <label for="bug-title" class="p-3">
-            <input type="text" class="form-control mb-3" placeholder="Title of Bug" name="board-title" v-model="state.newBug.title">
-          </label>
-          <label for="bug-description" class=" m-3">
-            <textarea name="description body"
-                      id=""
-                      cols="50"
-                      rows="3"
-                      placeholder="Add Description"
-                      class="form-control mb-1"
-                      v-model="state.newBug.description"
-            ></textarea>
-          </label>
-          <button type="submit" class="btn btn-primary m-3" title="Create Bug">
-            Submit Bug
-          </button>
-        </form>
+    <h3 class="mt-5">
+      Something Bugging you?
+    </h3>
+
+    <!-- Add Bug Trigger -->
+    <button type="button" class="button btn btn-info shadow mb-5" data-toggle="modal" data-target="#exampleModal">
+      Report a New Bug
+    </button>
+
+    <!-- Add Bug Modal -->
+    <div class="modal fade"
+         id="exampleModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Modal title
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form " @submit.prevent="createBug">
+              <div for="bug-title" class="p-3">
+                <input type="text"
+                       class="form-control mb-3"
+                       placeholder="Title of Bug"
+                       name="board-title"
+                       required
+                       v-model="state.newBug.title"
+                >
+              </div>
+              <div for="bug-description" class=" m-3">
+                <textarea name="description body"
+                          id=""
+                          cols="50"
+                          rows="3"
+                          placeholder="Add Description"
+                          class="form-control mb-1"
+                          required
+                          v-model="state.newBug.description"
+                ></textarea>
+              </div>
+              <button type="submit" class="button btn btn-primary m-3 shadow" title="Create Bug">
+                Submit Bug
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <h2>Welcome Bugs</h2>
+    <div class="row d-flex justify-content-center">
+      <div class="col-8">
+        <div class="d-flex justify-content-between">
+          All Bugs
+          <div>
+            <button class="button btn btn-primary shadow" @click="sortClosed" title="Sort">
+              Toggle Open Bugs
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <button class="btn btn-primary" @click="sortClosed" title="Sort">
-        Sort
-      </button>
     </div>
     <div class="row d-flex justify-content-center">
       <div class="col-10">
@@ -53,6 +90,7 @@ export default {
     const state = reactive({
       newBug: {},
       sortClosed: true,
+      sortOpen: true,
       bugs: computed(() => {
         if (state.sortClosed === true) {
           return AppState.bugs
@@ -95,4 +133,10 @@ export default {
     width: 200px;
   }
 }
+
+.button{
+  transition: all .2s ease-in-out;
+}
+.button:hover {
+  transform: scale(1.1); }
 </style>
